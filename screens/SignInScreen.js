@@ -95,12 +95,12 @@ import Users from '../model/users';
         }
     }
 
-    loginHandle = async (userName, password) => {
-        console.log("loginHandle: username : ",userName)
+    loginHandle = async (email, password) => {
+        console.log("loginHandle: email : ",email)
         console.log("loginHandle:password: ",password)
 
         let user = {
-            email: userName,
+            email: email,
             password: password
           }
 
@@ -150,7 +150,7 @@ render(){
             <Text style={[styles.text_footer, {
                 // color: colors.text
                 color:"#000000"
-            }]}>Username</Text>
+            }]}>Email</Text>
             <View style={styles.action}>
                 {/* //user icon */}
                 <FontAwesome 
@@ -159,7 +159,7 @@ render(){
                     size={20}
                 />
                 <TextInput 
-                    placeholder="Your Username"
+                    placeholder="Your Email"
                     placeholderTextColor="#666666"
                     style={[styles.textInput, {
                         color:"#000000"
