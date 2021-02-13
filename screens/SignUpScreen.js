@@ -99,7 +99,7 @@ import {homeActions } from './ducks'
      updateConfirmSecureTextEntry = () => {
         this.setState({
            
-            confirm_secureTextEntry: !data.confirm_secureTextEntry
+            confirm_secureTextEntry: !this.state.confirm_secureTextEntry
         });
     }
 

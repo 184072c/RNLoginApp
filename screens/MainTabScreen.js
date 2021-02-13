@@ -17,7 +17,7 @@ const Tab = createMaterialBottomTabNavigator();
 
 const MainTabScreen = () => (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Profile"
       activeColor="#fff"
     >
       <Tab.Screen

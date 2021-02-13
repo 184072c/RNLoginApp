@@ -14,6 +14,7 @@ import {
   DarkTheme as NavigationDarkTheme
 } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import { 
   Provider as PaperProvider, 
@@ -30,12 +31,16 @@ import SupportScreen from './screens/SupportScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import BookmarkScreen from './screens/BookmarkScreen';
 
+import SplashScreen from './screens/SplashScreen';
+import SignInScreen from './screens/SignInScreen';
+import SignUpScreen from './screens/SignUpScreen';
+
 import { AuthContext } from './components/context';
 
 import RootStackScreen from './screens/RootStackScreen';
 
 import AsyncStorage from '@react-native-community/async-storage';
-
+const RootStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 import reducers from './reducers';
 import services from './services';
@@ -187,8 +192,12 @@ const App = () => {
       <PaperProvider theme={theme}>
       <AuthContext.Provider value={authContext}>
       <NavigationContainer theme={theme}>
-        { login.loading ? (
+        {console.log("App js : ",login)}
+        { true ? (
           <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
+            <RootStack.Screen name="SplashScreen" component={SplashScreen}/>
+            <RootStack.Screen name="SignInScreen" component={SignInScreen}/>
+            <RootStack.Screen name="SignUpScreen" component={SignUpScreen}/>
             <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
             <Drawer.Screen name="SupportScreen" component={SupportScreen} />
             <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />

@@ -55,7 +55,7 @@ export default handleActions(
       };
     },
     [types.LOGIN_SUCCESS]: (state, {payload}) => {
-    //   _storeData(payload);
+     console.log("home : reducer : LOGIN_SUCEESS : ", payload)
 
       return {
         ...state,

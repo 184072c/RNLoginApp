@@ -23,6 +23,7 @@ import { AuthContext } from '../components/context';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Users from '../model/users';
+// const { signIn } = React.useContext(AuthContext);
 
 // const SignInScreen = ({navigation}) => {
     class SignInScreen extends Component{
@@ -41,7 +42,7 @@ import Users from '../model/users';
 
      textInputChange = (val) => {
         // console.log("textInputChange : val :",val)
-        if( val.trim().length >= 4 ) {
+        if( val.trim().length >= 2 ) {
             this.setState({
                 
                 username: val,
@@ -104,34 +105,9 @@ import Users from '../model/users';
             password: password
           }
 
-        this.props.login(user)
-
-        try {
-            await AsyncStorage.setItem('userToken', "userToken");
-          } catch(e) {
-            console.log(e);
-          }
-
-        // this.props.navigation.navigate('HomeDrawer')
-
-        // const foundUser = Users.filter( item => {
-        //     return userName == item.username && password == item.password;
-        // } );
-
-        // if ( data.username.length == 0 || data.password.length == 0 ) {
-        //     Alert.alert('Wrong Input!', 'Username or password field cannot be empty.', [
-        //         {text: 'Okay'}
-        //     ]);
-        //     return;
-        // }
-
-        // if ( foundUser.length == 0 ) {
-        //     Alert.alert('Invalid User!', 'Username or password is incorrect.', [
-        //         {text: 'Okay'}
-        //     ]);
-        //     return;
-        // }
-        // signIn(foundUser);
+        // call login api
+       // this.props.login({user:user, navigation:this.props.navigation})
+       this.props.navigation.navigate('HomeDrawer')
     }
 render(){
     return (
@@ -271,6 +247,7 @@ render(){
 
 // export default SignInScreen;
   const mapStateToProps = state => {
+      console.log("SignInScreen : state : ",state)
     return {
       login:state.Home.login
     };

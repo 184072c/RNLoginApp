@@ -135,7 +135,8 @@ export function DrawerContent(props) {
                         />
                     )}
                     label="Sign Out"
-                    onPress={() => {signOut()}}
+                    // onPress={() => {signOut()}}
+                    onPress={() => {props.navigation.navigate("SignInScreen")}}
                 />
             </Drawer.Section>
         </View>

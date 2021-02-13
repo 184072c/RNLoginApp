@@ -5,7 +5,8 @@ import endPoints from '../../util/EndPoint';
 import * as API from '../../util/HTTPClient';
 import AsyncStorage from '@react-native-community/async-storage';
 
-
+// const baseURL = "http://192.168.8.185:8085" 
+const baseURL = "http://192.168.8.185:8085" 
 tokenHandler = async ()=>{
   console.log("tokenHandler")
   try {
@@ -14,6 +15,8 @@ tokenHandler = async ()=>{
     console.log(e);
   }
 }
+
+
 const login = createLogic({
   type: types.LOGIN,
   latest: true,
@@ -26,16 +29,18 @@ const login = createLogic({
     } else {
       HTTPClient = API;
     }
-
     console.log("service : login : ", action.payload)
-    HTTPClient.Post("http://192.168.8.185:8085/login", action.payload )
+
+    HTTPClient.Post(baseURL+"/login", action.payload.user )
       .then(res => {
+        //here -> navigate home
+        action.payload.navigation.navigate('HomeDrawer')
         console.log("service : login : res ", res)
-        this.tokenHandler()
+        // this.tokenHandler()
         dispatch(actions.loginSuccess(res.data));
       })
       .catch(err => {
-        this.tokenHandler()
+        // this.tokenHandler()
         console.log("service : login : err ", err)
         dispatch(actions.loginFail(err));
       })
@@ -56,7 +61,7 @@ const register = createLogic({
       HTTPClient = API;
     }
 
-    HTTPClient.Post("http://192.168.8.185:8085/signup", action.payload)
+    HTTPClient.Post(baseURL+"/signup", action.payload)
       .then(res => {
         console.log("register :res",res)
         dispatch(actions.registerSuccess(res.data));
