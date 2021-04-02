@@ -9,6 +9,9 @@ import HomeScreen from './HomeScreen';
 import DetailsScreen from './DetailsScreen';
 import ExploreScreen from './ExploreScreen';
 import ProfileScreen from './ProfileScreen';
+import PredictedPlotScreen from './PredictedPlot';
+import LogVisualizationScreen from './LogVisualization';
+import LogFilesScreen from './LogFiles';
 
 const HomeStack = createStackNavigator();
 const DetailsStack = createStackNavigator();
@@ -17,7 +20,7 @@ const Tab = createMaterialBottomTabNavigator();
 
 const MainTabScreen = () => (
     <Tab.Navigator
-      initialRouteName="Profile"
+      initialRouteName="Home"
       activeColor="#fff"
     >
       <Tab.Screen
@@ -35,8 +38,8 @@ const MainTabScreen = () => (
         name="Notifications"
         component={DetailsStackScreen}
         options={{
-          tabBarLabel: 'Updates',
-          tabBarColor: '#1f65ff',
+          tabBarLabel: 'Notifications',
+          tabBarColor: '#009387',
           tabBarIcon: ({ color }) => (
             <Icon name="ios-notifications" color={color} size={26} />
           ),
@@ -47,13 +50,13 @@ const MainTabScreen = () => (
         component={ProfileScreen}
         options={{
           tabBarLabel: 'Profile',
-          tabBarColor: '#694fad',
+          tabBarColor: '#009387',
           tabBarIcon: ({ color }) => (
             <Icon name="ios-person" color={color} size={26} />
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Explore"
         component={ExploreScreen}
         options={{
@@ -63,7 +66,7 @@ const MainTabScreen = () => (
             <Icon name="ios-aperture" color={color} size={26} />
           ),
         }}
-      />
+      /> */}
     </Tab.Navigator>
 );
 
@@ -82,9 +85,23 @@ const HomeStackScreen = ({navigation}) => (
         <HomeStack.Screen name="Home" component={HomeScreen} options={{
         title:'Overview',
         headerLeft: () => (
-            <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
+            <Icon.Button 
+              name="ios-menu" 
+              size={25} 
+              backgroundColor="#009387" 
+              onPress={() => navigation.openDrawer()}
+            />
         )
         }} />
+       <DetailsStack.Screen name="LogFiles" component={LogFilesScreen} options={{
+        title:'Log Files'
+        }} />
+        <DetailsStack.Screen name="LogVisualization" component={LogVisualizationScreen} options={{
+        title:'Log Visualization'
+        }} />
+         <DetailsStack.Screen name="PredictedPlot" component={PredictedPlotScreen} options={{
+        title:'Predicted Plots'
+              }} />
 </HomeStack.Navigator>
 );
 
@@ -105,4 +122,58 @@ const DetailsStackScreen = ({navigation}) => (
         }} />
 </DetailsStack.Navigator>
 );
+
+const LogFilesStackScreen = ({navigation}) => (
+  <DetailsStack.Navigator screenOptions={{
+          headerStyle: {
+          backgroundColor: '#1f65ff',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+          fontWeight: 'bold'
+          }
+      }}>
+          <DetailsStack.Screen name="Details" component={LogFilesScreen} options={{
+          headerLeft: () => (
+              <Icon.Button name="ios-menu" size={25} backgroundColor="#1f65ff" onPress={() => navigation.openDrawer()}></Icon.Button>
+          )
+          }} />
+  </DetailsStack.Navigator>
+  );
+
+  const LogVisualizationStackScreen = ({navigation}) => (
+    <DetailsStack.Navigator screenOptions={{
+            headerStyle: {
+            backgroundColor: '#1f65ff',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+            fontWeight: 'bold'
+            }
+        }}>
+            <DetailsStack.Screen name="Details" component={LogVisualizationScreen} options={{
+            headerLeft: () => (
+                <Icon.Button name="ios-menu" size={25} backgroundColor="#1f65ff" onPress={() => navigation.openDrawer()}></Icon.Button>
+            )
+            }} />
+    </DetailsStack.Navigator>
+    );
+
+    const PredictedPlotStackScreen = ({navigation}) => (
+      <DetailsStack.Navigator screenOptions={{
+              headerStyle: {
+              backgroundColor: '#1f65ff',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+              fontWeight: 'bold'
+              }
+          }}>
+              <DetailsStack.Screen name="Details" component={PredictedPlotScreen} options={{
+              headerLeft: () => (
+                  <Icon.Button name="ios-menu" size={25} backgroundColor="#1f65ff" onPress={() => navigation.openDrawer()}></Icon.Button>
+              )
+              }} />
+      </DetailsStack.Navigator>
+      );
   

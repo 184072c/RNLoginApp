@@ -1,161 +1,120 @@
-import React, {useState} from 'react';
+import React, { Component } from 'react';
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-  TextInput,
   StyleSheet,
+  Text,
+  View,
+  Image,
+  SafeAreaView
 } from 'react-native';
+import { Form, Item, Input, Label } from 'native-base';
 
-import {useTheme} from 'react-native-paper';
+export class ProfileScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      gender: "male"
+    };
+  }
 
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-
-import BottomSheet from 'reanimated-bottom-sheet';
-// import Animated from 'react-native-reanimated';
-
-import ImagePicker from 'react-native-image-crop-picker';
-
-const ProfileScreen = () => {
-
+  render() {
     return (
       <SafeAreaView style={styles.container}>
-      <View style={styles.userInfoSection}>
-        <View style={{flexDirection: 'row', marginTop: 15}}>
-          <Avatar.Image 
-            source={{
-              uri: 'https://api.adorable.io/avatars/80/abott@adorable.png',
-            }}
-            size={80}
-          />
-          <View style={{marginLeft: 20}}>
-            <Title style={[styles.title, {
-              marginTop:15,
-              marginBottom: 5,
-            }]}>John Doe</Title>
-            <Caption style={styles.caption}>@j_doe</Caption>
-          </View>
-        </View>
-      </View>
+        <View style={styles.header}>
+          <View style={styles.headerContent}>
+            <Image style={styles.avatar}
+              source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar1.png' }} />
 
-      <View style={styles.userInfoSection}>
-        <View style={styles.row}>
-          <Icon name="map-marker-radius" color="#777777" size={20}/>
-          <Text style={{color:"#777777", marginLeft: 20}}>Kolkata, India</Text>
+            <Text style={styles.name}>
+              John Doe
+                  </Text>
+          </View>
         </View>
-        <View style={styles.row}>
-          <Icon name="phone" color="#777777" size={20}/>
-          <Text style={{color:"#777777", marginLeft: 20}}>+91-900000009</Text>
-        </View>
-        <View style={styles.row}>
-          <Icon name="email" color="#777777" size={20}/>
-          <Text style={{color:"#777777", marginLeft: 20}}>john_doe@email.com</Text>
-        </View>
-      </View>
 
-      <View style={styles.infoBoxWrapper}>
-          <View style={[styles.infoBox, {
-            borderRightColor: '#dddddd',
-            borderRightWidth: 1
-          }]}>
-            <Title>₹140.50</Title>
-            <Caption>Wallet</Caption>
-          </View>
-          <View style={styles.infoBox}>
-            <Title>12</Title>
-            <Caption>Orders</Caption>
-          </View>
-      </View>
+        <Form>
+          <Item floatingLabel>
+            <Label>Customer Name</Label>
+            <Input />
+          </Item>
+          <Item floatingLabel last>
+            <Label>Email</Label>
+            <Input />
+          </Item>
+          <Item floatingLabel last>
+            <Label>NIC No</Label>
+            <Input />
+          </Item>
+          <Item floatingLabel last>
+            <Label>Contact No</Label>
+            <Input />
+          </Item>
 
-      <View style={styles.menuWrapper}>
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Icon name="heart-outline" color="#FF6347" size={25}/>
-            <Text style={styles.menuItemText}>Your Favorites</Text>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Icon name="credit-card" color="#FF6347" size={25}/>
-            <Text style={styles.menuItemText}>Payment</Text>
-          </View>
-        </TouchableRipple>
-        {/* <TouchableRipple onPress={myCustomShare}>
-          <View style={styles.menuItem}>
-            <Icon name="share-outline" color="#FF6347" size={25}/>
-            <Text style={styles.menuItemText}>Tell Your Friends</Text>
-          </View>
-        </TouchableRipple> */}
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Icon name="account-check-outline" color="#FF6347" size={25}/>
-            <Text style={styles.menuItemText}>Support</Text>
-          </View>
-        </TouchableRipple>
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Icon name="settings-outline" color="#FF6347" size={25}/>
-            <Text style={styles.menuItemText}>Settings</Text>
-          </View>
-        </TouchableRipple>
-      </View>
+        </Form>
+
       </SafeAreaView>
-    );
-};
 
-export default ProfileScreen;
+    );
+  }
+}
+
+export default ProfileScreen
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  header: {
+    backgroundColor: "#00BFFF",
   },
-  userInfoSection: {
-    paddingHorizontal: 30,
-    marginBottom: 25,
+  headerContent: {
+    padding: 30,
+    alignItems: 'center',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  caption: {
-    fontSize: 14,
-    lineHeight: 14,
-    fontWeight: '500',
-  },
-  row: {
-    flexDirection: 'row',
+  avatar: {
+    width: 130,
+    height: 130,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
     marginBottom: 10,
   },
-  infoBoxWrapper: {
-    borderBottomColor: '#dddddd',
-    borderBottomWidth: 1,
-    borderTopColor: '#dddddd',
-    borderTopWidth: 1,
-    flexDirection: 'row',
-    height: 100,
+  name: {
+    fontSize: 22,
+    color: "#FFFFFF",
+    fontWeight: '600',
   },
-  infoBox: {
-    width: '50%',
+  bodyContent: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 30,
+  },
+  textInfo: {
+    fontSize: 18,
+    marginTop: 20,
+    color: "#696969",
+  },
+  bodyContent: {
+    paddingTop: 40,
+    flexDirection: 'row',
+    flexWrap: 'wrap'
+  },
+  menuBox: {
+    backgroundColor: "#DCDCDC",
+    width: 100,
+    height: 100,
     alignItems: 'center',
     justifyContent: 'center',
+    margin: 12,
+    shadowColor: 'black',
+    shadowOpacity: .2,
+    shadowOffset: {
+      height: 2,
+      width: -2
+    },
+    elevation: 4,
   },
-  menuWrapper: {
-    marginTop: 10,
+  icon: {
+    width: 60,
+    height: 60,
   },
-  menuItem: {
-    flexDirection: 'row',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-  },
-  menuItemText: {
-    color: '#777777',
-    marginLeft: 20,
-    fontWeight: '600',
-    fontSize: 16,
-    lineHeight: 26,
-  },
+  info: {
+    fontSize: 22,
+    color: "#696969",
+  }
 });
-
