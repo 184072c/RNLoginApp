@@ -4,6 +4,7 @@ import types from './types';
 import endPoints from '../../util/EndPoint';
 import * as API from '../../util/HTTPClient';
 import AsyncStorage from '@react-native-community/async-storage';
+import EndPoint from '../../util/EndPoint';
 
 // const baseURL = "http://192.168.8.185:8085" 
 const baseURL = "http://192.168.8.185:8085" 
@@ -61,7 +62,7 @@ const register = createLogic({
       HTTPClient = API;
     }
 
-    HTTPClient.Post(baseURL+"/signup", action.payload)
+    HTTPClient.Post(EndPoint.signup, action.payload)
       .then(res => {
         console.log("register :res",res)
         dispatch(actions.registerSuccess(res.data));

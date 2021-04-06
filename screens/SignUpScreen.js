@@ -75,6 +75,20 @@ import {homeActions } from './ducks'
         }
     }
 
+    phoneNumberHandler = (val) => {
+        if( val.length !== 0 ) {
+            this.setState({
+                phone: val,
+                check_phoneInputChange: true
+            });
+        } else {
+            this.setState({
+                phone: val,
+                check_phoneInputChange: false
+            });
+        }
+    }
+
      handlePasswordChange = (val) => {
         this.setState({
            
@@ -104,11 +118,19 @@ import {homeActions } from './ducks'
     }
 
     signUpHandler=()=>{
-        const user = {
-            name: this.state.name,
-            email: this.state.email,
-            nic: this.state.nic,
-            password: this.state.password, 
+        // const user = {
+        //     name: this.state.name,
+        //     username: this.state.email,
+        //     nic: this.state.nic,
+        //     password: this.state.password, 
+        //     phone : this.state.phone,
+        //   }
+          const user ={
+            username : "damitha@gmail.com",
+            name : "Damitha",
+            nic : "964154785V",
+            phone : "0719425245",
+            password : "1qaz2wsx"
           }
         console.log("signUpHandler : user",user)
         this.props.register(user)
@@ -190,6 +212,32 @@ render(){
                     onChangeText={(val) => this.nicHandler(val)}
                 />
                 {this.state.check_nicInputChange ? 
+                <Animatable.View
+                    animation="bounceIn"
+                >
+                    <Feather 
+                        name="check-circle"
+                        color="green"
+                        size={20}
+                    />
+                </Animatable.View>
+                : null}
+            </View>
+
+            <Text style={styles.text_footer}>Phone</Text>
+            <View style={styles.action}>
+                <FontAwesome 
+                    name="user-o"
+                    color="#05375a"
+                    size={20}
+                />
+                <TextInput 
+                    placeholder="Your Phone Number"
+                    style={styles.textInput}
+                    autoCapitalize="none"
+                    onChangeText={(val) => this.phoneNumberHandler(val)}
+                />
+                {this.state.check_phoneInputChange ? 
                 <Animatable.View
                     animation="bounceIn"
                 >
