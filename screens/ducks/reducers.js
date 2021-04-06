@@ -17,6 +17,9 @@ const initialState = {
   logout: {
     ...basicState,
   },
+  userDetails:{
+    ...basicState
+  }
 };
 
 const _storeData = async payload => {
@@ -157,6 +160,41 @@ export default handleActions(
     //     },
     //   };
     // },
+
+    //--------------------------------------------------------------
+    [types.GET_USER_DETAILS]: (state, {payload}) => {
+      return {
+        ...state,
+        userDetails: {
+          ...state.userDetails,
+          pending: true,
+        },
+      };
+    },
+    [types.GET_USER_DETAILS_SUCCESS]: (state, {payload}) => {
+      return {
+        ...state,
+        userDetails: {
+          ...state.userDetails,
+          loading: false,
+          pending: false,
+          data: payload,
+        },
+      };
+    },
+    [types.GET_USER_DETAILS_FAIL]: (state, {payload}) => {
+      return {
+        ...state,
+        userDetails: {
+          ...state.userDetails,
+          loading: false,
+          hasError: true,
+          pending: false,
+          error: {payload},
+        },
+      };
+    },
+    //------------------------------------------------------------------------
   },
   initialState,
 );

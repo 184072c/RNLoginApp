@@ -77,6 +77,33 @@ const register = createLogic({
   },
 });
 
+const getUserDetails = createLogic({
+  type: types.GET_USER_DETAILS,
+  latest: true,
+  debounce: 1000,
+
+  process({MockHTTPClient, getState, action}, dispatch, done) {
+    let HTTPClient;
+    if (MockHTTPClient) {
+      HTTPClient = MockHTTPClient;
+    } else {
+      HTTPClient = API;
+    }
+
+    HTTPClient.Get(EndPoint.getUserDetails+`${action.payload.id}`)
+      .then(res => {
+        console.log("GET_USER_DETAILS :res",res)
+        dispatch(actions.getUserDetailsSuccess(res.data))
+      })
+      .catch(err => {
+        console.log("GET_USER_DETAILS :err",err)
+
+        dispatch(actions.getUserDetailsFail(err));
+      })
+      .then(() => done());
+  },
+});
 
 
-export default [login,register];
+
+export default [login,register, getUserDetails];

@@ -8,4 +8,8 @@ export default {
   REGISTER: action_header + 'REGISTER',
   REGISTER_SUCCESS: action_header + 'REGISTER_SUCCESS',
   REGISTER_FAIL: action_header + 'REGISTER_FAIL',
+
+  GET_USER_DETAILS: action_header + 'GET_USER_DETAILS',
+  GET_USER_DETAILS_SUCCESS: action_header + 'GET_USER_DETAILS_SUCCESS',
+  GET_USER_DETAILS_FAIL: action_header + 'GET_USER_DETAILS_FAIL',
 };

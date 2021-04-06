@@ -10,5 +10,9 @@ export default {
  registerSuccess: createAction(types.REGISTER_SUCCESS),
  registerFail: createAction(types.REGISTER_FAIL),
 
+ getUserDetails: createAction(types.GET_USER_DETAILS),
+ getUserDetailsSuccess: createAction(types.GET_USER_DETAILS_SUCCESS),
+ getUserDetailsFail: createAction(types.GET_USER_DETAILS_FAIL),
+
   
 };
