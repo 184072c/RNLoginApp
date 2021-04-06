@@ -60,7 +60,7 @@ export const setAuth = async () => {
   } else {
     instance = axios.create({
       baseURL: '',
-      timeout: 40000,
+      timeout: 120000,
 
       headers: {
         'Content-Type': 'application/json',

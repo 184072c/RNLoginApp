@@ -32,7 +32,7 @@ const login = createLogic({
     }
     console.log("service : login : ", action.payload)
 
-    HTTPClient.Post(baseURL+"/login", action.payload.user )
+    HTTPClient.Post(EndPoint.login, action.payload.user )
       .then(res => {
         //here -> navigate home
         action.payload.navigation.navigate('HomeDrawer')

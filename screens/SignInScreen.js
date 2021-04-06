@@ -100,15 +100,19 @@ import Users from '../model/users';
         console.log("loginHandle: email : ",email)
         console.log("loginHandle:password: ",password)
 
+        // let user = {
+        //     username: email,
+        //     password: password
+        //   }
         let user = {
-            email: email,
-            password: password
+            username: "damitha@gmail.com",
+            password: "1qaz2wsx"
           }
 
         // call login api
-       // this.props.login({user:user, navigation:this.props.navigation})
-       this.props.navigation.navigate('HomeDrawer')
-    }
+       this.props.login({user:user, navigation:this.props.navigation})
+    //    this.props.navigation.navigate('HomeDrawer')
+     }
 render(){
     return (
       <View style={styles.container}>

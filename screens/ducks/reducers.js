@@ -20,12 +20,15 @@ const initialState = {
 };
 
 const _storeData = async payload => {
+  console.log('_storeData ~ payload', payload);
   try {
-    await AsyncStorage.setItem('token', payload.token);
-    await AsyncStorage.setItem('role', payload.role);
-    await AsyncStorage.setItem('id', payload.id.toString(10));
+    await AsyncStorage.setItem('token', payload.accessToken);
+    await AsyncStorage.setItem('role', payload.roles[0]);
+    await AsyncStorage.setItem('id', payload.id);
+    await AsyncStorage.setItem('nic', payload.nic);
     await AsyncStorage.setItem('userDetails', JSON.stringify(payload));
-    await AsyncStorage.setItem('profilePic', payload.user && payload.user.img);
+    // await AsyncStorage.setItem('profilePic', payload.user && payload.user.img);
+    console.log('TCL: _storeData -> Done ');
   } catch (error) {
     console.log('TCL: _storeData -> error', error);
     // Error saving data
@@ -56,6 +59,7 @@ export default handleActions(
     },
     [types.LOGIN_SUCCESS]: (state, {payload}) => {
      console.log("home : reducer : LOGIN_SUCEESS : ", payload)
+     _storeData(payload);
 
       return {
         ...state,
