@@ -16,6 +16,12 @@ export class ProfileScreen extends Component {
     };
   }
 
+  componentDidMount(){
+    let userID="606caf8ba5b3630a869344c8"
+    
+
+  }
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
