@@ -18,6 +18,12 @@ export default {
  updateUserDetailsSuccess: createAction(types.UPDATE_USER_DETAILS_SUCCESS),
  updateUserDetailsFail: createAction(types.UPDATE_USER_DETAILS_FAIL),
 
+ getLogFiles: createAction(types.GET_LOG_FILES),
+ getLogFilesSuccess: createAction(types.GET_LOG_FILES_SUCCESS),
+ getLogFilesFail: createAction(types.GET_LOG_FILES_FAIL),
+
+
+
 
 
   

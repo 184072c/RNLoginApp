@@ -17,5 +17,9 @@ export default {
   UPDATE_USER_DETAILS_SUCCESS: action_header + 'UPDATE_USER_DETAILS_SUCCESS',
   UPDATE_USER_DETAILS_FAIL: action_header + 'UPDATE_USER_DETAILS_FAIL',
 
+  GET_LOG_FILES: action_header + 'GET_LOG_FILES',
+  GET_LOG_FILES_SUCCESS: action_header + 'GET_LOG_FILES_SUCCESS',
+  GET_LOG_FILES_FAIL: action_header + 'GET_LOG_FILES_FAIL',
+
 
 };

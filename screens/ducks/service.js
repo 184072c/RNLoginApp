@@ -131,6 +131,32 @@ const updateUserDetails = createLogic({
   },
 });
 
+const getLogFiles = createLogic({
+  type: types.GET_LOG_FILES,
+  latest: true,
+  debounce: 1000,
+
+  process({MockHTTPClient, getState, action}, dispatch, done) {
+    let HTTPClient;
+    if (MockHTTPClient) {
+      HTTPClient = MockHTTPClient;
+    } else {
+      HTTPClient = API;
+    }
+
+    HTTPClient.Get(EndPoint.getLogFiles)
+      .then(res => {
+        console.log("GET_LOG_FILES :res",res)
+        dispatch(actions.getLogFilesSuccess(res.data))
+      })
+      .catch(err => {
+        console.log("GET_LOG_FILES:err",err)
+
+        dispatch(actions.getLogFilesFail(err));
+      })
+      .then(() => done());
+  },
+});
 
 
-export default [login,register, getUserDetails ,updateUserDetails ];
+export default [login,register, getUserDetails ,updateUserDetails, getLogFiles];

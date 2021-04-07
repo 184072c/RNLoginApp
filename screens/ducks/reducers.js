@@ -19,7 +19,13 @@ const initialState = {
   },
   userDetails:{
     ...basicState
-  }
+  },
+  updateUserDetails:{
+    ...basicState,
+  },
+  logFiles: {
+    ...basicState,
+  },
 };
 
 const _storeData = async payload => {
@@ -222,6 +228,41 @@ export default handleActions(
         ...state,
         updateUserDetails: {
           ...state.updateUserDetails,
+          loading: false,
+          hasError: true,
+          pending: false,
+          error: {payload},
+        },
+      };
+    },
+    
+    //------------------------------------------------------------------------
+    //--------------------------------------------------------------
+    [types.GET_LOG_FILES]: (state, {payload}) => {
+      return {
+        ...state,
+        logFiles: {
+          ...state.logFiles,
+          pending: true,
+        },
+      };
+    },
+    [types.GET_LOG_FILES_SUCCESS]: (state, {payload}) => {
+      return {
+        ...state,
+        logFiles: {
+          ...state.logFiles,
+          loading: false,
+          pending: false,
+          data: payload,
+        },
+      };
+    },
+    [types.GET_LOG_FILES_FAIL]: (state, {payload}) => {
+      return {
+        ...state,
+        logFiles: {
+          ...state.logFiles,
           loading: false,
           hasError: true,
           pending: false,
