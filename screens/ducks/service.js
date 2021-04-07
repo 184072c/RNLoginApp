@@ -117,15 +117,15 @@ const updateUserDetails = createLogic({
       HTTPClient = API;
     }
 
-    HTTPClient.Put(EndPoint.getUserDetails+`/${action.payload.id}`)
+    HTTPClient.Put(EndPoint.getUserDetails+`/${action.payload.id}`, action.payload.userDto)
       .then(res => {
-        console.log("PUT_USER_DETAILS :res",res)
-        dispatch(actions.putUserDetailsSuccess(res.data))
+        console.log("UPDATE_USER_DETAILS :res",res)
+        dispatch(actions.updateUserDetailsSuccess(res.data))
       })
       .catch(err => {
-        console.log("PUT_USER_DETAILS :err",err)
+        console.log("UPDATE_USER_DETAILS :err",err)
 
-        dispatch(actions.putUserDetailsFail(err));
+        dispatch(actions.updateUserDetailsFail(err));
       })
       .then(() => done());
   },

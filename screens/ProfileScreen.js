@@ -4,7 +4,8 @@ import {
   Text,
   View,
   Image,
-  SafeAreaView
+  SafeAreaView,
+  AsyncStorage
 } from 'react-native';
 import { Form, Item, Input, Label,Button } from 'native-base';
 import { connect } from "react-redux";
@@ -22,8 +23,7 @@ export class ProfileScreen extends Component {
   }
 
   componentDidMount(){
-    let userID="606de444b46a8d09f8ceab8f"
-    this.props.getUserDetails({id:userID})
+    this.getLoginDetails()
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -39,6 +39,25 @@ export class ProfileScreen extends Component {
     }
   }
 
+  getLoginDetails = async () => {
+    try {
+      var userDetails = await AsyncStorage.getItem('userDetails');
+      console.log('ProfileScreen ~ getUserDetails= ~ userDetails', userDetails);
+
+      var userDetailsObj = JSON.parse(userDetails);
+      console.log(
+        'ProfileScreen ~ getUserDetails= ~ userDetailsObj',
+        userDetailsObj,
+      );
+
+      this.props.getUserDetails({id: userDetailsObj.id});
+      this.setState({userID:userDetailsObj.id})
+    } catch (error) {
+      console.log('ProfileScreen -> _retrieveData -> error', error);
+      // Error retrieving data
+    }
+  };
+
   handleSubmit =()=>{
     console.log('ProfileScreen : state : ', this.state);
     // const {data} = this.props.loginDetails;
@@ -51,11 +70,10 @@ export class ProfileScreen extends Component {
     };
     console.log('ProfileScreen ~ userDto', userDto);
 
-    // this.props.updateUserDetails({
-    //   // id: data.id,
-    //   id:"606de444b46a8d09f8ceab8f",
-    //   userDto: userDto,
-    // });
+    this.props.updateUserDetails({
+      id: this.state.userID,
+      userDto: userDto,
+    });
 
   }
 
@@ -113,7 +131,7 @@ export class ProfileScreen extends Component {
               success
               style={{paddingLeft: 5, marginTop: 10, marginLeft: 10}}
               onPress={this.handleSubmit}>
-              <Text>Submit</Text>
+              <Text>UPDATE</Text>
             </Button>
 
         </Form>
