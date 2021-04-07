@@ -195,6 +195,41 @@ export default handleActions(
       };
     },
     //------------------------------------------------------------------------
+
+     //--------------------------------------------------------------
+     [types.UPDATE_USER_DETAILS]: (state, {payload}) => {
+      return {
+        ...state,
+        updateUserDetails: {
+          ...state.updateUserDetails,
+          pending: true,
+        },
+      };
+    },
+    [types.UPDATE_USER_DETAILS_SUCCESS]: (state, {payload}) => {
+      return {
+        ...state,
+        updateUserDetails: {
+          ...state.updateUserDetails,
+          loading: false,
+          pending: false,
+          data: payload,
+        },
+      };
+    },
+    [types.UPDATE_USER_DETAILS_FAIL]: (state, {payload}) => {
+      return {
+        ...state,
+        updateUserDetails: {
+          ...state.updateUserDetails,
+          loading: false,
+          hasError: true,
+          pending: false,
+          error: {payload},
+        },
+      };
+    },
+    //------------------------------------------------------------------------
   },
   initialState,
 );

@@ -14,5 +14,11 @@ export default {
  getUserDetailsSuccess: createAction(types.GET_USER_DETAILS_SUCCESS),
  getUserDetailsFail: createAction(types.GET_USER_DETAILS_FAIL),
 
+ updateUserDetails: createAction(types.UPDATE_USER_DETAILS),
+ updateUserDetailsSuccess: createAction(types.UPDATE_USER_DETAILS_SUCCESS),
+ updateUserDetailsFail: createAction(types.UPDATE_USER_DETAILS_FAIL),
+
+
+
   
 };

@@ -90,7 +90,7 @@ const getUserDetails = createLogic({
       HTTPClient = API;
     }
 
-    HTTPClient.Get(EndPoint.getUserDetails+`${action.payload.id}`)
+    HTTPClient.Get(EndPoint.getUserDetails+`/${action.payload.id}`)
       .then(res => {
         console.log("GET_USER_DETAILS :res",res)
         dispatch(actions.getUserDetailsSuccess(res.data))
@@ -104,6 +104,33 @@ const getUserDetails = createLogic({
   },
 });
 
+const updateUserDetails = createLogic({
+  type: types.UPDATE_USER_DETAILS,
+  latest: true,
+  debounce: 1000,
+
+  process({MockHTTPClient, getState, action}, dispatch, done) {
+    let HTTPClient;
+    if (MockHTTPClient) {
+      HTTPClient = MockHTTPClient;
+    } else {
+      HTTPClient = API;
+    }
+
+    HTTPClient.Put(EndPoint.getUserDetails+`/${action.payload.id}`)
+      .then(res => {
+        console.log("PUT_USER_DETAILS :res",res)
+        dispatch(actions.putUserDetailsSuccess(res.data))
+      })
+      .catch(err => {
+        console.log("PUT_USER_DETAILS :err",err)
+
+        dispatch(actions.putUserDetailsFail(err));
+      })
+      .then(() => done());
+  },
+});
 
 
-export default [login,register, getUserDetails];
+
+export default [login,register, getUserDetails ,updateUserDetails ];

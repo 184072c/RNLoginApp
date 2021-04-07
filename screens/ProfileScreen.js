@@ -6,7 +6,10 @@ import {
   Image,
   SafeAreaView
 } from 'react-native';
-import { Form, Item, Input, Label } from 'native-base';
+import { Form, Item, Input, Label,Button } from 'native-base';
+import { connect } from "react-redux";
+import { homeActions } from './ducks';
+
 
 export class ProfileScreen extends Component {
   constructor(props) {
@@ -14,15 +17,52 @@ export class ProfileScreen extends Component {
     this.state = {
       gender: "male"
     };
+
+    // this.handleSubmit=this.handleSubmit(bind)
   }
 
   componentDidMount(){
-    let userID="606caf8ba5b3630a869344c8"
-    
+    let userID="606de444b46a8d09f8ceab8f"
+    this.props.getUserDetails({id:userID})
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    if(this.props.userDetails.data && (JSON.stringify(this.props.userDetails) !== JSON.stringify(prevProps.userDetails))){
+      const { data } = this.props.userDetails
+      this.setState({
+        userDetails:this.props.userDetails,
+        name: data && data.name,
+        username:data && data.username,
+        nic: data && data.nic,
+        phone: data && data.phone
+      })
+    }
+  }
+
+  handleSubmit =()=>{
+    console.log('ProfileScreen : state : ', this.state);
+    // const {data} = this.props.loginDetails;
+
+    let userDto = {
+      username: this.state.username,
+      name: this.state.name,
+      nic: this.state.nic,
+      phone: this.state.phone,
+    };
+    console.log('ProfileScreen ~ userDto', userDto);
+
+    // this.props.updateUserDetails({
+    //   // id: data.id,
+    //   id:"606de444b46a8d09f8ceab8f",
+    //   userDto: userDto,
+    // });
 
   }
 
   render() {
+    console.log("ProfilePage : props : ", this.props)
+    console.log("ProfilePage : state : ", this.state)
+
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
@@ -31,28 +71,50 @@ export class ProfileScreen extends Component {
               source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar1.png' }} />
 
             <Text style={styles.name}>
-              John Doe
+             {this.state.name}
                   </Text>
           </View>
         </View>
 
         <Form>
           <Item floatingLabel>
-            <Label>Customer Name</Label>
-            <Input />
+            <Label>Name</Label>
+            <Input 
+             value={this.state.name}
+             defaultValue={this.state.name}
+             onChangeText={name => this.setState({name})}
+            />
           </Item>
           <Item floatingLabel last>
             <Label>Email</Label>
-            <Input />
+            <Input 
+            value={this.state.username}
+            defaultValue={this.state.username}
+            onChangeText={username => this.setState({username})}
+            />
           </Item>
           <Item floatingLabel last>
             <Label>NIC No</Label>
-            <Input />
+            <Input 
+             value={this.state.nic}
+             defaultValue={this.state.nic}
+             onChangeText={nic => this.setState({nic})}
+             />
           </Item>
           <Item floatingLabel last>
             <Label>Contact No</Label>
-            <Input />
+            <Input 
+             value={this.state.phone}
+             defaultValue={this.state.phone}
+             onChangeText={phone => this.setState({phone})}/>
           </Item>
+
+          <Button
+              success
+              style={{paddingLeft: 5, marginTop: 10, marginLeft: 10}}
+              onPress={this.handleSubmit}>
+              <Text>Submit</Text>
+            </Button>
 
         </Form>
 
@@ -62,7 +124,16 @@ export class ProfileScreen extends Component {
   }
 }
 
-export default ProfileScreen
+const mapStateToProps = state => {
+  return {
+    userDetails:state.Home.userDetails
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  homeActions,
+)(ProfileScreen);
 
 const styles = StyleSheet.create({
   header: {
