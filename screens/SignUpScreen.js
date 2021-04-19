@@ -35,21 +35,23 @@ import {homeActions } from './ducks'
 
     
 
-     textInputChange = (val) => {
-        if( val.length !== 0 ) {
+        emailHandler = (val) => {
+        var pattEmail = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
+
+        if(pattEmail.test(val) ) {
             this.setState({
                 email: val,
-                check_textInputChange: true
+                check_emailInputChange: true
             });
         } else {
             this.setState({
                 email: val,
-                check_textInputChange: false
+                check_emailInputChange: false
             });
         }
     }
     nameHandler = (val) => {
-        if( val.length !== 0 ) {
+        if(  val.length !== 0 ) {
             this.setState({
                 name: val,
                 check_nameInputChange: true
@@ -62,7 +64,7 @@ import {homeActions } from './ducks'
         }
     }
     nicHandler = (val) => {
-        if( val.length !== 0 ) {
+        if( val.length >= 10  && val.length <=12 ) {
             this.setState({
                 nic: val,
                 check_nicInputChange: true
@@ -90,17 +92,32 @@ import {homeActions } from './ducks'
     }
 
      handlePasswordChange = (val) => {
+       if(val.length > 7){
         this.setState({
-           
-            password: val
+            password: val,
+            validPassword:true
         });
+       }else{
+        this.setState({
+            password: val,
+            validPassword:false
+        });
+       }
     }
 
     handleConfirmPasswordChange = (val) => {
-        this.setState({
-            
-            confirm_password: val
-        });
+        if(this.state.password === val){
+            this.setState({
+                confirm_password: val,
+                validConfirmPassword:true
+            });
+        }else{
+            this.setState({
+                confirm_password: val,
+                validConfirmPassword:false
+            });
+        }
+       
     }
 
      updateSecureTextEntry = () => {
@@ -118,22 +135,22 @@ import {homeActions } from './ducks'
     }
 
     signUpHandler=()=>{
-        // const user = {
-        //     name: this.state.name,
-        //     username: this.state.email,
-        //     nic: this.state.nic,
-        //     password: this.state.password, 
-        //     phone : this.state.phone,
-        //   }
-          const user ={
-            username : "damitha@gmail.com",
-            name : "Damitha",
-            nic : "964154785V",
-            phone : "0719425245",
-            password : "1qaz2wsx"
+        const user = {
+            name: this.state.name,
+            username: this.state.email,
+            nic: this.state.nic,
+            password: this.state.password, 
+            phone : this.state.phone,
           }
+        //   const user ={
+        //     username : "damitha2@gmail.com",
+        //     name : "Damitha",
+        //     nic : "964154788V",
+        //     phone : "0719425245",
+        //     password : "1qaz2wsx"
+        //   }
         console.log("signUpHandler : user",user)
-        this.props.register(user)
+        this.props.register({user:user, navigation:this.props.navigation})
 
     }
 render(){
@@ -159,9 +176,9 @@ render(){
                     placeholder="Your Email"
                     style={styles.textInput}
                     autoCapitalize="none"
-                    onChangeText={(val) => this.textInputChange(val)}
+                    onChangeText={(val) => this.emailHandler(val)}
                 />
-                {this.state.check_textInputChange ? 
+                {this.state.check_emailInputChange ? 
                 <Animatable.View
                     animation="bounceIn"
                 >
@@ -329,6 +346,7 @@ render(){
             </View>
             <View style={styles.button}>
                 <TouchableOpacity
+                disabled={!(this.state.check_emailInputChange && this.state.check_nameInputChange && this.state.check_nicInputChange && this.state.check_phoneInputChange && this.state.validPassword && this.state.validConfirmPassword)}
                     style={styles.signIn}
                     onPress={() => {this.signUpHandler()}}
                 >

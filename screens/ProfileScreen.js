@@ -104,6 +104,7 @@ export class ProfileScreen extends Component {
             />
           </Item>
           <Item floatingLabel last>
+            
             <Label>Email</Label>
             <Input 
             value={this.state.username}

@@ -62,16 +62,18 @@ const register = createLogic({
       HTTPClient = API;
     }
 
-    HTTPClient.Post(EndPoint.signup, action.payload)
+    HTTPClient.Post(EndPoint.signup, action.payload.user)
       .then(res => {
         console.log("register :res",res)
         dispatch(actions.registerSuccess(res.data));
         // dispatch(actions.getProduct(action.payload));
+        action.payload.navigation.navigate('SignInScreen')
+
       })
       .catch(err => {
-        console.log("register :err",err)
+        console.log("register :err", err.response.data)
 
-        dispatch(actions.registerFai(err));
+        dispatch(actions.registerFai(err.response.data));
       })
       .then(() => done());
   },

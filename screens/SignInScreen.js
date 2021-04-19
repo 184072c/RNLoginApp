@@ -42,16 +42,15 @@ import Users from '../model/users';
 
      textInputChange = (val) => {
         // console.log("textInputChange : val :",val)
-        if( val.trim().length >= 2 ) {
+        var pattEmail = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
+        if(pattEmail.test(val)) {
             this.setState({
-                
                 username: val,
                 check_textInputChange: true,
                 isValidUser: true
             });
         } else {
             this.setState({
-                
                 username: val,
                 check_textInputChange: false,
                 isValidUser: false
@@ -100,14 +99,14 @@ import Users from '../model/users';
         console.log("loginHandle: email : ",email)
         console.log("loginHandle:password: ",password)
 
-        // let user = {
-        //     username: email,
-        //     password: password
-        //   }
         let user = {
-            username: "damitha@gmail.com",
-            password: "1qaz2wsx"
+            username: email,
+            password: password
           }
+        // let user = {
+        //     username: "damitha@gmail.com",
+        //     password: "1qaz2wsx"
+        //   }
 
         // call login api
        this.props.login({user:user, navigation:this.props.navigation})
@@ -131,6 +130,7 @@ render(){
                 // color: colors.text
                 color:"#000000"
             }]}>Email</Text>
+
             <View style={styles.action}>
                 {/* //user icon */}
                 <FontAwesome 
@@ -145,7 +145,8 @@ render(){
                         color:"#000000"
                     }]}
                     autoCapitalize="none"
-                    onChangeText={(val) => this.textInputChange(val)}
+                    onChangeText={(val) => this.textInputChange(val)
+                    }
                     onEndEditing={(e)=>this.handleValidUser(e.nativeEvent.text)}
                 />
                 {this.state.check_textInputChange ? 
@@ -162,7 +163,7 @@ render(){
             </View>
             { this.state.isValidUser ? null : 
             <Animatable.View animation="fadeInLeft" duration={500}>
-            <Text style={styles.errorMsg}>Username must be 4 characters long.</Text>
+            <Text style={styles.errorMsg}>invalid email</Text>
             </Animatable.View>
             }
             
@@ -217,6 +218,7 @@ render(){
             </TouchableOpacity>
             <View style={styles.button}>
                 <TouchableOpacity
+                disabled={!(this.state.isValidUser && this.state.isValidPassword)}
                     style={styles.signIn}
                     onPress={() => {this.loginHandle( this.state.username, this.state.password )}}
                 >

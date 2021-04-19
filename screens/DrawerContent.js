@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet,AsyncStorage } from 'react-native';
 import {
     useTheme,
     Avatar,
@@ -26,34 +26,41 @@ export function DrawerContent(props) {
 
     const { signOut, toggleTheme } = React.useContext(AuthContext);
 
+    const signOutHandler= async()=>{
+        console.log('signOutHandler');
+     
+          try {
+        console.log('signOutHandler with try');
+            AsyncStorage.clear();
+            props.navigation.navigate("SignInScreen")
+            console.log('signOutHandler -> Done');
+        
+            // var userDetails = await AsyncStorage.getItem('userDetails');
+          } catch (error) {
+            console.log('signOutHandler -> error', error);
+            // Error removing data
+          }
+    }
+
     return(
         <View style={{flex:1}}>
             <DrawerContentScrollView {...props}>
                 <View style={styles.drawerContent}>
                     <View style={styles.userInfoSection}>
                         <View style={{flexDirection:'row',marginTop: 15}}>
-                            <Avatar.Image 
+                            {/* <Avatar.Image 
                                 source={{
                                     uri: 'https://api.adorable.io/avatars/50/abott@adorable.png'
                                 }}
                                 size={50}
-                            />
-                            <View style={{marginLeft:15, flexDirection:'column'}}>
+                            /> */}
+                            {/* <View style={{marginLeft:15, flexDirection:'column'}}>
                                 <Title style={styles.title}>John Doe</Title>
                                 <Caption style={styles.caption}>@j_doe</Caption>
-                            </View>
+                            </View> */}
                         </View>
 
-                        {/* <View style={styles.row}>
-                            <View style={styles.section}>
-                                <Paragraph style={[styles.paragraph, styles.caption]}>80</Paragraph>
-                                <Caption style={styles.caption}>Following</Caption>
-                            </View>
-                            <View style={styles.section}>
-                                <Paragraph style={[styles.paragraph, styles.caption]}>100</Paragraph>
-                                <Caption style={styles.caption}>Followers</Caption>
-                            </View>
-                        </View> */}
+                        {}
                     </View>
 
                     <Drawer.Section style={styles.drawerSection}>
@@ -68,6 +75,17 @@ export function DrawerContent(props) {
                             label="Home"
                             onPress={() => {props.navigation.navigate('Home')}}
                         />
+                        {/* <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                name="office-outline" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="office"
+                            onPress={() => {props.navigation.navigate('office')}}
+                        /> */}
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
@@ -113,16 +131,7 @@ export function DrawerContent(props) {
                             onPress={() => {props.navigation.navigate('SupportScreen')}}
                         /> */}
                     </Drawer.Section>
-                    <Drawer.Section title="Preferences">
-                        <TouchableRipple onPress={() => {toggleTheme()}}>
-                            <View style={styles.preference}>
-                                <Text>Dark Theme</Text>
-                                <View pointerEvents="none">
-                                    <Switch value={paperTheme.dark}/>
-                                </View>
-                            </View>
-                        </TouchableRipple>
-                    </Drawer.Section>
+                   
                 </View>
             </DrawerContentScrollView>
             <Drawer.Section style={styles.bottomDrawerSection}>
@@ -136,8 +145,11 @@ export function DrawerContent(props) {
                     )}
                     label="Sign Out"
                     // onPress={() => {signOut()}}
-                    onPress={() => {props.navigation.navigate("SignInScreen")}}
+                    onPress={() => signOutHandler()}
                 />
+                {
+                    
+                }
             </Drawer.Section>
         </View>
     );

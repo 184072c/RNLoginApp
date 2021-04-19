@@ -8,10 +8,6 @@ import { homeActions } from './ducks';
 class LogFilesScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      gender: "male"
-    };
-
   }
 
   componentDidMount(){
@@ -31,7 +27,7 @@ class LogFilesScreen extends Component {
             {data &&
               data.map((file, i) => {
                 return (
-                  <Card key={file.id}>
+                  <Card key={file._id}>
                     <CardItem header>
                       <Text>Log File #{i + 1}</Text>
                     </CardItem>
