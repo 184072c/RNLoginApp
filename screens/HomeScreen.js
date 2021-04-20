@@ -21,10 +21,6 @@ const HomeScreen = ({navigation}) => {
     navigation.navigate('LogFiles');
   };
 
-  const logsVisualizationHandler = () => {
-    navigation.navigate('LogVisualization');
-  };
-
   return (
     <ScrollView>
       <HomeCard

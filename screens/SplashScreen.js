@@ -29,6 +29,8 @@ class SplashScreen extends Component {
       const token = await AsyncStorage.getItem('token');
       console.log('token : ', token);
       if (token) {
+        console.log('token : ', token);
+
         this.props.navigation.navigate('HomeDrawer');
       }
     } catch (error) {
@@ -69,7 +71,7 @@ class SplashScreen extends Component {
           <Text style={styles.text}>Sign in with account</Text>
           <View style={styles.button}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('SignInScreen')}>
+              onPress={() => this.props.navigation.navigate('SignInScreen')}>
               <LinearGradient
                 colors={['#08d4c4', '#01ab9d']}
                 style={styles.signIn}>
