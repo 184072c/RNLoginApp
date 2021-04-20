@@ -58,7 +58,7 @@ class SignInScreen extends Component {
   };
 
   handlePasswordChange = val => {
-    if (val.trim().length >= 6) {
+    if (val.trim().length > 7) {
       this.setState({
         password: val,
         isValidPassword: true,
